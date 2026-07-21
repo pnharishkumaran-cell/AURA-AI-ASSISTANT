@@ -23,7 +23,7 @@ while True:
         speak("Goodbye have a nice day")
         break
 
-    if "open youtube" in command or"open google"in command or "time" in command or "date" in command:
+    if "open youtube" in command or"open google"in command or "time" in command or "date" in command or "open notepad " in command or "open calculator" in command or "open camera" in command or "search youtube for" in command or "search" in command or "take screenshot" in command:
         process_command(command)
 
     else:
