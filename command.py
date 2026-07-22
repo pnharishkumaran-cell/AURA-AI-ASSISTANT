@@ -5,6 +5,18 @@ import pyautogui
 from speech import speak
 from datetime import datetime
 
+
+apps = {
+    "chrome": "chrome",
+    "notepad": "notepad",
+    "calculator": "calc",
+    "paint": "mspaint",
+    "word": "winword",
+    "excel": "excel",
+    "powerpoint": "powerpnt",
+    "command prompt": "cmd",
+    "file explorer": "explorer"
+}
 def get_date():
     today=datetime.now().strftime("%d %B %Y")
     return f"today date is {today}"
@@ -40,6 +52,31 @@ def process_command(command):
         screenshot=pyautogui.screenshot()
         screenshot.save("screenshot.png")
         speak("screenshot saved successfully")
+    elif "remember" in command:
+        note=command.replace("remember","").strip()
+
+        with open("notes.txt","a") as file:
+            file.write(note+"\n")
+
+        speak("Okay i have saved your note")
+    elif command.startswith("open "):
+        app_name = command.replace("open", "").strip()
+
+        if app_name in apps:
+            speak(f"Opening {app_name}")
+            os.system(apps[app_name])
+        else:
+            speak("Sorry, I don't know that application.")
+
+    elif "show my notes" in command:
+        with open("notes.txt","a") as file:
+            notes=file.read()
+
+        if notes:
+            speak(notes)
+        else:
+            speak("you have no notes")
+
 
     elif "search youtube for " in command:
         query=command.replace(f"search youtube for","").strip()
